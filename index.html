@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -6,13 +6,15 @@
   <title>Mehreen Zahoor | Unity Game Developer</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
+  <div id="webgl-root" class="webgl-root" aria-hidden="true"></div>
+  <div id="css3d-root" class="css3d-root" aria-hidden="false"></div>
   <header class="site-header text-white" id="top">
-    <nav class="navbar navbar-expand-lg navbar-dark py-3 navbar-custom">
+    <nav class="navbar navbar-expand-lg navbar-dark py-3 navbar-custom glass">
       <div class="container">
         <a class="navbar-brand fw-bold" href="#top">Mehreen Zahoor</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
@@ -43,6 +45,30 @@
           <div class="hero-actions d-flex flex-wrap gap-3 mt-4">
             <a href="#work" class="btn btn-primary btn-lg">Explore Projects</a>
             <a href="#contact" class="btn btn-outline-light btn-lg">Contact Me</a>
+          </div>
+
+          <div class="hero-dashboard mt-5">
+            <div class="col-sm-4">
+              <div class="dashboard-card p-3 rounded-4 glow-edge">
+                <span>Retention</span>
+                <h6>+78%</h6>
+                <p>Optimized loops and player flow.</p>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="dashboard-card p-3 rounded-4 glow-edge">
+                <span>Frame Stability</span>
+                <h6>60 FPS</h6>
+                <p>Mobile-ready performance tuning.</p>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="dashboard-card p-3 rounded-4 glow-edge">
+                <span>Live Systems</span>
+                <h6>IAP + Ads</h6>
+                <p>Monetization integrated for scale.</p>
+              </div>
+            </div>
           </div>
 
           <div class="hero-details row gx-3 gy-3 mt-5">
@@ -159,7 +185,7 @@
       </div>
       <div class="row g-4">
         <div class="col-md-6 col-xl-4">
-          <article class="project-card overflow-hidden rounded-4 h-100">
+          <article class="project-card overflow-hidden rounded-4 h-100 tilt-card">
             <img class="project-image" src="https://m.media-amazon.com/images/I/81a9-iwAzrL.png" alt="AI Mix Animal" />
             <div class="p-4">
               <span class="project-tag">Featured release</span>
@@ -171,7 +197,7 @@
           </article>
         </div>
         <div class="col-md-6 col-xl-4">
-          <article class="project-card overflow-hidden rounded-4 h-100">
+          <article class="project-card overflow-hidden rounded-4 h-100 tilt-card">
             <img class="project-image" src="https://m.media-amazon.com/images/I/81O902Qx8bL._SL500_.png" alt="Tricky Bike Vs Train" />
             <div class="p-4">
               <span class="project-tag">Gameplay prototype</span>
@@ -183,7 +209,7 @@
           </article>
         </div>
         <div class="col-md-6 col-xl-4">
-          <article class="project-card overflow-hidden rounded-4 h-100">
+          <article class="project-card overflow-hidden rounded-4 h-100 tilt-card">
             <img class="project-image" src="https://m.media-amazon.com/images/I/81uyoIeErOL.png" alt="Bullet Army" />
             <div class="p-4">
               <span class="project-tag">Live build</span>
@@ -313,17 +339,17 @@
             <form>
               <div class="mb-3">
                 <label class="form-label">Name</label>
-                <input type="text" class="form-control form-control-dark" placeholder="Your name" />
+                <input type="text" name="name" autocomplete="name" class="form-control form-control-dark" placeholder="Your name" />
               </div>
               <div class="mb-3">
                 <label class="form-label">Email</label>
-                <input type="email" class="form-control form-control-dark" placeholder="you@example.com" />
+                <input type="email" name="email" autocomplete="email" class="form-control form-control-dark" placeholder="you@example.com" />
               </div>
               <div class="mb-3">
                 <label class="form-label">Message</label>
-                <textarea class="form-control form-control-dark" rows="4" placeholder="Tell me about your project"></textarea>
+                <textarea name="message" class="form-control form-control-dark" rows="4" placeholder="Tell me about your project"></textarea>
               </div>
-              <button type="submit" class="btn btn-primary btn-lg">Send message</button>
+              <button type="submit" class="btn btn-primary btn-lg send-btn">Send message</button>
             </form>
           </div>
         </div>
@@ -337,8 +363,10 @@
       <small>© 2026 Mehreen Zahoor · Unity Game Developer</small>
     </div>
   </footer>
+    <button id="backToTop" class="back-to-top" aria-label="Back to top">↑</button>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="js/script.js"></script>
+  <script type="module" src="js/three-scene.js"></script>
 </body>
 </html>
