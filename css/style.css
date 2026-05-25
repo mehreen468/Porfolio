@@ -55,6 +55,11 @@ a:hover {
 .navbar-nav .nav-link.active {
   color: #7dd3fc;
 }
+.skill-card:hover {
+  transform: translateY(-8px) translateZ(2px);
+  box-shadow: 0 32px 90px rgba(0, 0, 0, 0.25);
+  border-color: rgba(56, 189, 248, 0.24);
+}
 
 .navbar-brand {
   letter-spacing: 0.12em;
@@ -68,9 +73,16 @@ a:hover {
   overflow: hidden;
 }
 
+.hero .container {
+  position: relative;
+}
+
 .hero-copy {
   position: relative;
   z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
 .hero-visual {
@@ -79,46 +91,52 @@ a:hover {
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 1.5rem 0;
+  margin-top: 0 !important;
 }
 
-.hero-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
+.hero-visual .scene {
+  border-radius: 32px;
+  background: rgba(255, 255, 255, 0.04);
+  box-shadow: 0 40px 120px rgba(0, 0, 0, 0.18);
+  padding: 1rem;
+}
+
+.hero-chip {
+  display: inline-flex;
   align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 0.95rem 1.2rem;
+  border-radius: 999px;
+  background: rgba(10, 14, 35, 0.82);
+  border: 1px solid rgba(56, 189, 248, 0.18);
+  box-shadow: 0 28px 85px rgba(0, 0, 0, 0.24);
+  backdrop-filter: blur(8px);
+  max-width: 380px;
 }
 
-.hero-dashboard {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 1rem;
-  margin: 0;
-  padding: 0;
+.hero-chip .chip-label {
+  color: rgba(125, 211, 252, 0.88);
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
 }
-
-.hero-dashboard > .col-sm-4 {
-  width: auto;
+  width: 100%;
   min-width: 0;
   padding-left: 0;
   padding-right: 0;
 }
 
-.scene {
-  width: min(100%, 320px);
-  height: min(100%, 320px);
-  max-width: 100%;
+.hero-details {
+  margin-top: 2.5rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
 }
 
-.cube {
-  width: 220px;
-  height: 220px;
-}
-
-@media (min-width: 992px) {
-  .cube {
-    width: 240px;
-    height: 240px;
-  }
+.hero-details .detail-card {
+  width: 100%;
 }
 
 .hero::before {
@@ -265,15 +283,20 @@ a:hover {
 }
 
 .scene {
-  width: 320px;
-  height: 320px;
+  width: min(100%, 340px);
+  height: clamp(240px, 60vw, 340px);
+  max-width: 340px;
+  max-height: 340px;
   margin: 0 auto;
-  perspective: 1400px;
+  perspective: 1500px;
+  display: grid;
+  place-items: center;
 }
 
 .cube {
-  width: 200px;
-  height: 200px;
+  --cube-depth: 110px;
+  width: 220px;
+  height: 220px;
   position: relative;
   transform-style: preserve-3d;
   transform: rotateX(-25deg) rotateY(0deg);
@@ -283,8 +306,8 @@ a:hover {
 
 .face {
   position: absolute;
-  width: 200px;
-  height: 200px;
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -303,12 +326,50 @@ a:hover {
   letter-spacing: 0.08em;
 }
 
-.face-front { transform: translateZ(100px); }
-.face-back { transform: rotateY(180deg) translateZ(100px); }
-.face-right { transform: rotateY(90deg) translateZ(100px); }
-.face-left { transform: rotateY(-90deg) translateZ(100px); }
-.face-top { transform: rotateX(90deg) translateZ(100px); }
-.face-bottom { transform: rotateX(-90deg) translateZ(100px); }
+.face-front { transform: translateZ(var(--cube-depth, 100px)); }
+.face-back { transform: rotateY(180deg) translateZ(var(--cube-depth, 100px)); }
+.face-right { transform: rotateY(90deg) translateZ(var(--cube-depth, 100px)); }
+.face-left { transform: rotateY(-90deg) translateZ(var(--cube-depth, 100px)); }
+.face-top { transform: rotateX(90deg) translateZ(var(--cube-depth, 100px)); }
+.face-bottom { transform: rotateX(-90deg) translateZ(var(--cube-depth, 100px)); }
+
+@media (min-width: 992px) {
+  .hero-visual {
+    align-items: flex-start;
+    justify-content: end;
+    padding-top: 0;
+  }
+
+  .cube {
+    width: 260px;
+    height: 260px;
+    --cube-depth: 140px;
+  }
+
+  .scene {
+    margin-top: -48px; /* lift the scene up into the empty right space */
+    width: min(100%, 420px);
+    height: clamp(300px, 38vw, 420px);
+    max-width: 420px;
+  }
+
+  .hero-copy {
+    padding-right: 1.5rem; /* keep space between text and cube */
+  }
+
+  /* Cube layout variants for easy previewing */
+  .scene.variant-subtle { /* default: slightly smaller, moved right */
+    transform: translateZ(0) translateY(-18px) translateX(18px) scale(0.92);
+  }
+
+  .scene.variant-dramatic { /* lifted higher and overlapping more */
+    transform: translateZ(0) translateY(-54px) translateX(6px) scale(1.08);
+  }
+
+  .scene.variant-compact { /* small and snug to the right edge */
+    transform: translateZ(0) translateY(-8px) translateX(36px) scale(0.78);
+  }
+}
 
 @keyframes rotateCube {
   from { transform: rotateX(-25deg) rotateY(0deg); }
@@ -359,14 +420,14 @@ a:hover {
 
 .hero-dashboard {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 1rem;
   margin: 0;
   padding: 0;
 }
 
 .hero-dashboard > .col-sm-4 {
-  width: auto;
+  width: 100%;
   min-width: 0;
   padding-left: 0;
   padding-right: 0;
@@ -380,6 +441,11 @@ a:hover {
   overflow: hidden;
   box-shadow: 0 26px 80px rgba(0, 0, 0, 0.35);
   transition: transform 260ms ease, border-color 260ms ease, box-shadow 260ms ease;
+}
+
+.dashboard-card:hover {
+  transform: translateY(-6px) scale(1.01);
+  box-shadow: 0 48px 110px rgba(0, 255, 255, 0.20);
 }
 
 .dashboard-card span {
@@ -410,12 +476,6 @@ a:hover {
   background: radial-gradient(circle at top right, rgba(0,255,255,0.14), transparent 35%);
   opacity: 0.35;
   pointer-events: none;
-}
-
-.dashboard-card:hover {
-  transform: translateY(-5px);
-  border-color: rgba(0, 255, 255, 0.32);
-  box-shadow: 0 40px 120px rgba(0, 255, 255, 0.12);
 }
 
 .content-panel,
@@ -485,6 +545,10 @@ a:hover {
   transform: perspective(800px) rotateX(5deg) rotateY(5deg) translateZ(10px);
 }
 
+.tilt-card:hover .project-image {
+  transform: translateZ(42px) scale(1.04) rotateZ(1deg);
+}
+
 .project-card {
   position: relative;
   overflow: hidden;
@@ -501,6 +565,14 @@ a:hover {
   transform: translateY(-8px) scale(1.005);
   border-color: rgba(56, 189, 248, 0.45);
   box-shadow: 0 42px 110px rgba(2, 12, 35, 0.35);
+}
+
+.project-card, .skill-card, .dashboard-card, .detail-card {
+  will-change: transform, box-shadow;
+}
+
+.project-card img {
+  transition: transform 260ms ease, box-shadow 260ms ease;
 }
 
 .project-card h3 {
@@ -738,57 +810,6 @@ html { scroll-behavior: smooth; }
   100% { transform: translateY(0px); }
 }
 
-.hero-visual {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 1rem 0;
-}
-
-@media (min-width: 992px) {
-  .hero-visual {
-    justify-content: flex-end;
-  }
-}
-
-.hero-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  align-items: center;
-}
-
-.scene {
-  width: min(100%, 320px);
-  height: min(100%, 320px);
-  max-width: 320px;
-  margin: 0 auto;
-}
-
-.cube {
-  width: min(100%, 260px);
-  height: min(100%, 260px);
-  max-width: 260px;
-  max-height: 260px;
-}
-
-@media (min-width: 992px) {
-  .hero-visual {
-    justify-content: flex-end;
-  }
-
-  .scene {
-    margin: 0;
-  }
-
-  .cube {
-    width: 240px;
-    height: 240px;
-  }
-}
-
 .hero-title, .hero-tagline {
   animation: floatY 6s ease-in-out infinite;
   will-change: transform;
@@ -800,24 +821,128 @@ html { scroll-behavior: smooth; }
   opacity: 0.95;
 }
 
-/* Respect prefers-reduced-motion and disable on small screens */
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+  .hero-copy {
+    max-width: 100%;
+  }
+  .hero-dashboard {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  }
+  .hero-details {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
+}
+
+@media (max-width: 992px) {
+  .hero .row {
+    align-items: stretch !important;
+  }
+  .hero-copy,
+  .hero-visual {
+    text-align: center;
+  }
+  .hero-visual {
+    padding-top: 1.5rem;
+    justify-content: center;
+  }
+  .hero-actions {
+    justify-content: center;
+  }
+  .hero-chip {
+    width: 100%;
+    justify-content: center;
+  }
+  .scene {
+    width: min(100%, 280px);
+    height: min(100%, 280px);
+    margin: 0 auto;
+  }
+  .cube {
+    width: min(92vw, 240px);
+    height: min(92vw, 240px);
+  }
+  .hero-dashboard {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  .hero-dashboard > .col-sm-4 {
+    width: 100%;
+  }
+  .hero-details {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  .hero-details .detail-card {
+    width: 100%;
+  }
+  .project-card img {
+    height: auto;
+  }
+}
+
 @media (max-width: 768px), (prefers-reduced-motion: reduce) {
-  .hero-title, .hero-tagline, .hero-label { animation: none; transform: none; }
-  .hero { padding-top: 3rem; padding-bottom: 3rem; }
-  .hero-title { font-size: clamp(2.4rem, 10vw, 3.3rem); }
-  .hero-tagline { font-size: 1rem; max-width: 100%; }
-  .hero-actions { justify-content: center; }
-  .hero-copy, .hero-visual { text-align: center; }
-  .hero-visual { padding-top: 1.5rem; }
-  .hero-chip { width: 100%; justify-content: center; }
-  .hero-dashboard { display: grid; grid-template-columns: 1fr; gap: 1rem; }
-  .hero-dashboard > .col-sm-4 { width: 100%; }
-  .hero-dashboard .dashboard-card { margin-bottom: 0; }
-  .hero-details { display: grid; grid-template-columns: 1fr; gap: 1rem; }
-  .hero-details .detail-card { width: 100%; }
-  .scene { width: min(100%, 240px); height: min(100%, 240px); margin: 0 auto; }
-  .cube { width: min(92%, 240px); height: min(92%, 240px); }
-  .project-card img { height: auto; }
+  .hero-title,
+  .hero-tagline,
+  .hero-label {
+    animation: none;
+    transform: none;
+  }
+  .hero {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+  .hero-title {
+    font-size: clamp(2.4rem, 10vw, 3.3rem);
+  }
+  .hero-tagline {
+    font-size: 1rem;
+    max-width: 100%;
+  }
+  .hero-copy,
+  .hero-visual {
+    text-align: center;
+  }
+  .hero-visual {
+    padding-top: 1.5rem;
+  }
+  .hero-chip {
+    width: 100%;
+    justify-content: center;
+  }
+  .hero-dashboard {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  .hero-dashboard > .col-sm-4 {
+    width: 100%;
+  }
+  .hero-dashboard .dashboard-card {
+    margin-bottom: 0;
+  }
+  .hero-details {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  .hero-details .detail-card {
+    width: 100%;
+  }
+  .scene {
+    width: min(100%, 260px);
+    height: min(100%, 260px);
+    margin: 0 auto;
+  }
+  .cube {
+    width: min(92vw, 220px);
+    height: min(92vw, 220px);
+  }
+  .project-card img {
+    height: auto;
+  }
 }
 
 .badge-soft {
@@ -842,31 +967,6 @@ html { scroll-behavior: smooth; }
   box-shadow: 0 0 0 0.15rem rgba(56, 189, 248, 0.18);
 }
 
-.hero-chip {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.9rem;
-  padding: 1rem 1.5rem;
-  background: rgba(11, 15, 40, 0.96);
-  border: 1px solid rgba(96, 165, 250, 0.2);
-  border-radius: 999px;
-  width: fit-content;
-  margin-top: 1.5rem;
-}
-
-.chip-label {
-  display: block;
-  color: #7dd3fc;
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-  font-size: 0.72rem;
-}
-
-.hero-chip p {
-  margin: 0;
-  color: #f8fafc;
-}
 
 .back-to-top {
   position: fixed;
@@ -901,5 +1001,17 @@ html { scroll-behavior: smooth; }
   }
   .hero-actions .btn, .project-card, .detail-card {
     transition: none;
+  }
+}
+/* ✅ MODEL UPAR KARNE KE LIYE - END MEIN ADD KARO */
+model-viewer {
+  margin-top: -300px;  /* pehle -120px tha, ab -220px */
+  height: 1000px;       /* bada karne ke liye */
+}
+
+@media (max-width: 992px) {
+  model-viewer {
+    margin-top: 0;
+    height: 420px;
   }
 }

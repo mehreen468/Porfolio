@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let rotation = 0;
 
   const updateCube = () => {
-    rotation += 0.15;
+    rotation += 0.08;
     if (cube) cube.style.transform = `rotateX(-20deg) rotateY(${rotation}deg)`;
     requestAnimationFrame(updateCube);
   };
